@@ -1,0 +1,14 @@
+foodkey,type,name,price
+0,none,none,0.00
+1,bakery,Bagel,1.95
+2,bakery,Muffin,2.65
+3,bakery,Danish,2.95
+4,bakery,Brownie,2.95
+5,bakery,Cookie,2.45
+6,sandwhich,Double Smoked Bacon,5.25
+7,sandwhich,Turkey Bacon,4.15
+8,sandwhich,Chicken Wrap,4.68
+9,sandwhich,Ham & Swiss Panini ,6.75
+10,snacks,Chips,1.79
+11,snacks,Yogurt,2.45
+12,snacks,Protein Box,6.45
