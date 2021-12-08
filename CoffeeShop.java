@@ -352,7 +352,7 @@ public class CoffeeShop {
     private void populateDrinks() {
         //System.out.println();
         //System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Populate customer");
+        System.out.println("Populate Drinks");
 
         insertDrinks(0, "none", "none", "none", 0.00);
 
@@ -939,7 +939,7 @@ public class CoffeeShop {
     private void populateOrders() {
         //System.out.println();
         //System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Populate orders");
+        System.out.println("Populate Orders");
 
         insertOrders(1, 2, 1, 17, 12, 1);
 
@@ -1156,8 +1156,10 @@ public class CoffeeShop {
     
         
     private void Input1() {
+        System.out.println();
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Caffeine-free Menu");
+        System.out.println("                     --- Caffeine-free Menu ---");
+        System.out.println();
 
         try {              
             String sql = "SELECT size, d_type, d_name, price " +
@@ -1187,6 +1189,7 @@ public class CoffeeShop {
         }
 
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println();
     }
 
     private void Q2() {
@@ -1293,7 +1296,7 @@ public class CoffeeShop {
 
     private void userInputs(int x){
         switch (x){
-            case 1: System.out.println("Hello");
+            case 1: Input1();
                 break;
         }
     }
@@ -1320,32 +1323,46 @@ public class CoffeeShop {
         sj.populatePayment();
         sj.populateProfile();
         
-        sj.Input1();
-        
-        /*
+        System.out.println();
         System.out.println("Enter a number for the following statements: ");
-
+        System.out.println("--------------------------------------------");
+        System.out.println("0: Exit");
         System.out.println("1: Caffeine-free Menu");
         System.out.println("2: Meat-free Menu");
         System.out.println("3: Coffee Only");
         System.out.println("4: Tea Only");
         System.out.println("5: Iced Drinks Only");
         System.out.println("6: Hot Drinks Only");
+        System.out.println("--------------------------------------------");
+        System.out.println();                    
+        System.out.print("Choose option: ");
 
         Scanner sc = new Scanner(System.in);
         int input = sc.nextInt();
         
         
         sj.userInputs(input);
-        */
         
-        /*
-        sj.Q1();
-        sj.Q2();
-        sj.Q3();
-        sj.Q4();
-        sj.Q5();
-        */
+        while(input != 0){
+            System.out.println("Enter a number for the following statements: ");
+            System.out.println("--------------------------------------------");
+            System.out.println("0: Exit");
+            System.out.println("1: Caffeine-free Menu");
+            System.out.println("2: Meat-free Menu");
+            System.out.println("3: Coffee Only");
+            System.out.println("4: Tea Only");
+            System.out.println("5: Iced Drinks Only");
+            System.out.println("6: Hot Drinks Only");
+            System.out.println("--------------------------------------------");
+            System.out.println();
+            System.out.print("Choose option: ");
+
+            sc = new Scanner(System.in);
+            input = sc.nextInt();
+        
+            sj.userInputs(input);
+        }
+        
         sj.closeConnection();
     }
 }
