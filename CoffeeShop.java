@@ -1,6 +1,6 @@
 // STEP: Import required packages
 import java.sql.*;
-
+import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -1152,32 +1152,36 @@ public class CoffeeShop {
         //System.out.println();
     }
 
-        
-    private void Q1() {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Q1");
 
-        try {
-            FileWriter writer = new FileWriter("output/1.out", false);
-            PrintWriter printer = new PrintWriter(writer);
-                
-            String sql = "SELECT *" +
-                         "FROM warehouse" +
-                         "GROUP BY w_warehousekey";
+    
+        
+    private void Input1() {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("Caffeine-free Menu");
+
+        try {              
+            String sql = "SELECT size, d_type, d_name, price " +
+                         "FROM   drinks, menu_drinks " +
+                         "WHERE  drinks.drinkkey = menu_drinks.drinkkey " + 
+                            "and menukey = 2";
 
             PreparedStatement stmt = c.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
-            printer.printf("%10s %-40s %10s %10s %10s\n", "wId", "wName", "wCap", "sId", "nId");
-            System.out.println("-------------------------------");
-
+            System.out.printf("%10s %20s %25s %10s\n", "Size", "Type", "Drink Name", "Price");
+            System.out.println("--------------------------------------------------------------------");
+                                
             while (rs.next()) {
-                int warehouse = rs.getInt("warehouse");
-                System.out.printf("%10d\n", warehouse);
+                String size = rs.getString("size");
+                String type = rs.getString("d_type");
+                String name = rs.getString("d_name");
+                Double price = rs.getDouble("price");
+
+                System.out.printf("%10s %20s %25s %10s\n", size, type, name, price);
             }
 
-            printer.close();
-            writer.close();
+            rs.close();
+            stmt.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
@@ -1286,10 +1290,20 @@ public class CoffeeShop {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
+
+    private void userInputs(int x){
+        switch (x){
+            case 1: System.out.println("Hello");
+                break;
+        }
+    }
+
     public static void main(String args[]) {
         CoffeeShop sj = new CoffeeShop();
         
         sj.openConnection("coffeeshop.sqlite");
+
+        
 
         sj.dropTables();
         sj.createTables();
@@ -1306,6 +1320,25 @@ public class CoffeeShop {
         sj.populatePayment();
         sj.populateProfile();
         
+        sj.Input1();
+        
+        /*
+        System.out.println("Enter a number for the following statements: ");
+
+        System.out.println("1: Caffeine-free Menu");
+        System.out.println("2: Meat-free Menu");
+        System.out.println("3: Coffee Only");
+        System.out.println("4: Tea Only");
+        System.out.println("5: Iced Drinks Only");
+        System.out.println("6: Hot Drinks Only");
+
+        Scanner sc = new Scanner(System.in);
+        int input = sc.nextInt();
+        
+        
+        sj.userInputs(input);
+        */
+        
         /*
         sj.Q1();
         sj.Q2();
@@ -1316,12 +1349,3 @@ public class CoffeeShop {
         sj.closeConnection();
     }
 }
-
-
-
-/*
-Assistance:
-    https://www.tutorialspoint.com/java_mysql/java_mysql_drop_tables.htm
-
-
-*/
