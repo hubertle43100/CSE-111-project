@@ -1,0 +1,85 @@
+drinkkey|size|type|name|price
+0|none|none|none|0.00
+1|Small|hot coffee|Americano|2.95
+2|Medium|hot coffee|Americano|3.45
+3|Large|hot coffee|Americano|3.65
+4|Small|hot coffee|Cappuccino|3.45
+5|Medium|hot coffee|Cappuccino|4.25
+6|Large|hot coffee|Cappuccino|4.75
+7|Small|hot coffee|Dirty Chai|3.95
+8|Medium|hot coffee|Dirty Chai|4.65
+9|Large|hot coffee|Dirty Chai|4.95
+10|Small|hot coffee|Double Espresso|2.65
+11|Small|hot coffee|Latte|3.45
+12|Medium|hot coffee|Latte|4.25
+13|Large|hot coffee|Latte|4.75
+14|Small|hot coffee|Macchiatto|4.45
+15|Medium|hot coffee|Macchiatto|4.95
+16|Large|hot coffee|Macchiatto|5.25
+17|Small|hot coffee|Mocha|4.15
+18|Medium|hot coffee|Mocha|4.65
+19|Large|hot coffee|Mocha|4.95
+20|Small|hot coffee|White Mocha|4.65
+21|Medium|hot coffee|White Mocha|4.95
+22|Large|hot coffee|White Mocha|5.45
+23|Small|hot drink|Hot Chocolate|2.95
+24|Medium|hot drink|Hot Chocolate|3.45
+25|Large|hot drink|Hot Chocolate|3.65
+26|Small|hot drink|Hot White Chocolate|3.45
+27|Medium|hot drink|Hot White Chocolate|3.95
+28|Large|hot drink|Hot White Chocolate|4.15
+29|Small|hot tea|Chai|3.95
+30|Medium|hot tea|Chai|4.65
+31|Large|hot tea|Chai|4.95
+32|Small|hot tea|Chamomile|2.45
+33|Medium|hot tea|Chamomile|2.75
+34|Large|hot tea|Chamomile|2.95
+35|Small|hot tea |English Breakfast|2.45
+36|Medium|hot tea |English Breakfast|2.75
+37|Large|hot tea |English Breakfast|2.95
+38|Small|hot tea|Matcha|3.95
+39|Medium|hot tea|Matcha|4.65
+40|Large|hot tea|Matcha|4.95
+41|Small|hot tea|Peppermint|2.45
+42|Medium|hot tea|Peppermint|2.75
+43|Large|hot tea|Peppermint|2.95
+44|Small|iced coffee |Americano|3.45
+45|Medium|iced coffee |Americano|3.95
+46|Large|iced coffee |Americano|4.45
+47|Small|iced coffee |Dirty Chai|4.65
+48|Medium|iced coffee |Dirty Chai|5.45
+49|Large|iced coffee |Dirty Chai|5.95
+50|Small|iced coffee |Latte|3.45
+51|Medium|iced coffee |Latte|4.25
+52|Large|iced coffee |Latte|4.95
+53|Small|iced coffee |Macchiatto|4.45
+54|Medium|iced coffee |Macchiatto|4.95
+55|Large|iced coffee |Macchiatto|5.45
+56|Small|iced tea|Black Tea|2.45
+57|Medium|iced tea|Black Tea |2.95
+58|Large|iced tea|Black Tea|3.25
+59|Small|iced tea|Green Tea|2.45
+60|Medium|iced tea|Green Tea|2.95
+61|Large|iced tea|Green Tea|3.25
+62|Small|iced tea|Lemonade|2.95
+63|Medium|iced tea|Lemonade|3.45
+64|Large|iced tea|Lemonade|3.95
+65|Small|iced tea|Chai|4.25
+66|Medium|iced tea|Chai|4.75
+67|Large|iced tea|Chai|4.95
+68|Small|iced tea|Matcha|4.25
+69|Medium|iced tea|Matcha|4.75
+70|Large|iced tea|Matcha|4.95
+71|Small|blended|Matcha |4.45
+72|Medium|blended|Matcha|4.95
+73|Large|blended|Matcha|5.45
+74|Small|blended|Mocha |4.45
+75|Medium|blended|Mocha|4.95
+76|Large|blended|Mocha|4.45
+77|Small|blended|Vanilla Creme |4.25
+78|Medium|blended|Vanilla Creme |4.75
+79|Large|blended|Vanilla Creme |5.25
+80|Large|chilled|Cup of Ice|0.25
+81|n/a|chilled|Fruit Juice|2.99
+82|Large|chilled|Ice Water|0.25
+83|n/a|chilled|Water Bottle|2.59
