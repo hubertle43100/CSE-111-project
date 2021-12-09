@@ -1,6 +1,6 @@
 # CSE-111-project
  
-This project is contains a self-created database for a coffeeshop program. 
+This project is part of the final project for CSE 111-Database Systems course at UC Merced. It contains a self-created database for a coffeeshop program which includes the integration of Java with SQL queries. 
 
 API's used: MySQL, SQLite, Java, JDBC.
 
