@@ -1,5 +1,5 @@
-// STEP: Import required packages
 import java.sql.*;
+
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -233,10 +233,10 @@ public class CoffeeShop {
         System.out.println("Populate cafe");
 
         insertCafe(1, 5, 23, 7, 21, "1st Street");
-        insertCafe(1, 5, 23, 7, 21, "Trish & Holland");
-        insertCafe(1, 5, 23, 7, 21, "McDougal");
-        insertCafe(1, 5, 23, 7, 21, "Priscilla");
-        insertCafe(1, 5, 23, 7, 21, "Airline Hwy");
+        insertCafe(2, 5, 23, 7, 21, "Trish & Holland");
+        insertCafe(3, 5, 23, 7, 21, "McDougal");
+        insertCafe(4, 5, 23, 7, 21, "Priscilla");
+        insertCafe(5, 5, 23, 7, 21, "Airline Hwy");
 
         System.out.println("success");
         //System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -939,7 +939,7 @@ public class CoffeeShop {
     private void populateOrders() {
         //System.out.println();
         //System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Populate Orders");
+        System.out.println("Populate orders");
 
         insertOrders(1, 2, 1, 17, 12, 1);
 
@@ -1152,20 +1152,24 @@ public class CoffeeShop {
         //System.out.println();
     }
 
-
-    
         
-    private void Input1() {
-        System.out.println();
+    private void D1(int input) {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("                     --- Caffeine-free Menu ---");
-        System.out.println();
-
+        if(input == 1) {
+            System.out.println("__________________________________");
+            System.out.println("General Drink Menu");
+            System.out.println("__________________________________\n");
+        }
+        if(input == 2) {
+            System.out.println("__________________________________");
+            System.out.println("Caffeine-free Menu");
+            System.out.println("__________________________________\n");
+        }
         try {              
             String sql = "SELECT size, d_type, d_name, price " +
                          "FROM   drinks, menu_drinks " +
                          "WHERE  drinks.drinkkey = menu_drinks.drinkkey " + 
-                            "and menukey = 2";
+                            "and menukey = "+input+"";
 
             PreparedStatement stmt = c.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -1189,23 +1193,78 @@ public class CoffeeShop {
         }
 
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println();
     }
-
-    private void Q2() {
+    private void D2(Double lowprice, Double highprice) {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Q2");
+        System.out.println("__________________________________");
+            System.out.println("Drink items within your price range");
+            System.out.println("__________________________________\n");
+        try {              
+            String sql = "SELECT size, d_type, d_name, price " +
+                         "FROM   drinks, menu_drinks " +
+                         "WHERE  drinks.drinkkey = menu_drinks.drinkkey " + 
+                            "and price BETWEEN "+lowprice+" AND "+highprice+"";
 
-        try {
-            FileWriter writer = new FileWriter("output/2.out", false);
-            PrintWriter printer = new PrintWriter(writer);
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
 
-            
+            System.out.printf("%10s %20s %25s %10s\n", "Size", "Type", "Drink Name", "Price");
+            System.out.println("--------------------------------------------------------------------");
+                                
+            while (rs.next()) {
+                String size = rs.getString("size");
+                String type = rs.getString("d_type");
+                String name = rs.getString("d_name");
+                Double price = rs.getDouble("price");
 
-            printer.printf("%-40s %10s %10s\n", "nation", "numW", "totCap");
+                System.out.printf("%10s %20s %25s %10s\n", size, type, name, price);
+            }
 
-            printer.close();
-            writer.close();
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    private void D3(int input) {
+        String sql = "";
+        if (input == 1) {sql = "SELECT size, d_type, d_name, price " +
+        "FROM   drinks, menu_drinks " +
+        "WHERE  drinks.drinkkey = menu_drinks.drinkkey " + 
+           "and size = 'Small'";}
+        if (input == 2) {sql = "SELECT size, d_type, d_name, price " +
+        "FROM   drinks, menu_drinks " +
+        "WHERE  drinks.drinkkey = menu_drinks.drinkkey " + 
+           "and size = 'Medium'";}
+        if (input == 3) {sql = "SELECT size, d_type, d_name, price " +
+        "FROM   drinks, menu_drinks " +
+        "WHERE  drinks.drinkkey = menu_drinks.drinkkey " + 
+           "and size = 'Large'";}
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("__________________________________");
+            System.out.println("Drink items with your size preference");
+            System.out.println("__________________________________\n");
+        try {              
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%10s %20s %25s %10s\n", "Size", "Type", "Drink Name", "Price");
+            System.out.println("--------------------------------------------------------------------");
+                                
+            while (rs.next()) {
+                String size = rs.getString("size");
+                String type = rs.getString("d_type");
+                String name = rs.getString("d_name");
+                Double price = rs.getDouble("price");
+
+                System.out.printf("%10s %20s %25s %10s\n", size, type, name, price);
+            }
+
+            rs.close();
+            stmt.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
@@ -1213,27 +1272,304 @@ public class CoffeeShop {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    private void Q3() {
+    private void C1() {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Q3");
+        System.out.println("__________________________________");
+        System.out.println("Customer's Account Balance");
+        System.out.println("__________________________________\n");
+        
+        try {              
+            String sql = "SELECT c_name, acctbal " +
+                         "FROM   customer, profile " +
+                         "WHERE  customer.custkey = profile.profilekey ";
 
-        try {
-            File fn = new File("input/3.in");
-            FileReader reader = new FileReader(fn);
-            BufferedReader in = new BufferedReader(reader);
-            String nation = in.readLine();
-            in.close();
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
 
-            FileWriter writer = new FileWriter("output/3.out", false);
-            PrintWriter printer = new PrintWriter(writer);
+            System.out.printf("%10s %20s \n", "Name", "AcctBal");
+            System.out.println("------------------------------------");
+                                
+            while (rs.next()) {
+                String name = rs.getString("c_name");
+                Double price = rs.getDouble("acctbal");
 
+                System.out.printf("%10s %20s \n",name, price);
+            }
 
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
 
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    private void C2() {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("__________________________________");
+        System.out.println("Locations where Customers ordered");
+        System.out.println("__________________________________\n");
+        
+        try {              
+            String sql = "SELECT c_name, cf_name " +
+            "FROM   customer, cafe, orders " +
+            "WHERE  customer.custkey = orders.custkey " +
+               "AND orders.cafekey = cafe.cafekey";
 
-            printer.printf("%-20s %-20s %-40s\n", "supplier", "nation", "warehouse");
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
 
-            printer.close();
-            writer.close();
+            System.out.printf("%10s %20s \n", "Name", "Cafe Name");
+            System.out.println("------------------------------------");
+                                
+            while (rs.next()) {
+                String name = rs.getString("c_name");
+                String cf_type = rs.getString("cf_name");
+
+                System.out.printf("%10s %20s \n",name, cf_type);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    private void C3() {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("__________________________________");
+        System.out.println("Customer's Card info");
+        System.out.println("__________________________________\n");
+        try {              
+            String sql = "SELECT c_name, p_type " +
+                         "FROM   customer, payment, orders " +
+                         "WHERE  customer.custkey = orders.custkey " +
+                            "AND orders.paymentkey = payment.paymentkey";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%10s %20s \n", "Name", "Payment Type");
+            System.out.println("------------------------------------");
+                                
+            while (rs.next()) {
+                String name = rs.getString("c_name");
+                String p_type = rs.getString("p_type");
+
+                System.out.printf("%10s %20s \n",name, p_type);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    private void F1(int input) {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        if(input == 1) {
+            System.out.println("__________________________________");
+            System.out.println("General Drink Menu");
+            System.out.println("__________________________________\n");
+        }
+        if(input == 2) {
+            System.out.println("__________________________________");
+            System.out.println("Meat-free Menu");
+            System.out.println("__________________________________\n");
+            input += 1;
+        }
+        try {              
+            String sql = "SELECT f_type, f_name, price " +
+                         "FROM   food, menu_food " +
+                         "WHERE  food.foodkey = menu_food.foodkey " + 
+                            "and menukey = "+input+"";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%10s %20s %25s\n", "Type", "Food Name", "Price");
+            System.out.println("--------------------------------------------------------------------");
+                                
+            while (rs.next()) {
+                String type = rs.getString("f_type");
+                String name = rs.getString("f_name");
+                Double price = rs.getDouble("price");
+
+                System.out.printf("%10s %20s %25s\n", type, name, price);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    private void F2(Double lowprice, Double highprice) {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("__________________________________");
+            System.out.println("Food items in your price range");
+            System.out.println("__________________________________\n");
+        try {              
+            String sql = "SELECT f_type, f_name, price " +
+                         "FROM   food, menu_food " +
+                         "WHERE  food.foodkey = menu_food.foodkey " + 
+                            "and price BETWEEN "+lowprice+" AND "+highprice+"";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%10s %20s %25s\n", "Type", "Drink Name", "Price");
+            System.out.println("--------------------------------------------------------------------");
+                                
+            while (rs.next()) {
+                String type = rs.getString("f_type");
+                String name = rs.getString("f_name");
+                Double price = rs.getDouble("price");
+
+                System.out.printf("%10s %20s %25s\n", type, name, price);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    private void F3(int input) {
+        String sql = "";
+        if (input == 1) {sql = "SELECT f_type, f_name, price " +
+            "FROM   food, menu_food " +
+            "WHERE  food.foodkey = menu_food.foodkey " + 
+                "AND f_type = 'bakery'";}
+        if (input == 2) {sql = "SELECT f_type, f_name, price " +
+            "FROM   food, menu_food " +
+            "WHERE  food.foodkey = menu_food.foodkey " + 
+                "AND f_type = 'snacks'";}
+        if (input == 3) {sql = "SELECT f_type, f_name, price " +
+            "FROM   food, menu_food " +
+            "WHERE  food.foodkey = menu_food.foodkey " + 
+                "AND f_type = 'sandwhich'";}
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("__________________________________");
+            System.out.println("Food items with your type");
+            System.out.println("__________________________________\n");
+        try {              
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%10s %20s %25s\n", "Type", "Drink Name", "Price");
+            System.out.println("--------------------------------------------------------------------");
+                                
+            while (rs.next()) {
+                String type = rs.getString("f_type");
+                String name = rs.getString("f_name");
+                Double price = rs.getDouble("price");
+
+                System.out.printf("%10s %20s %25s\n", type, name, price);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    private void O1() {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("__________________________________");
+            System.out.println("List of Customer's order detail");
+            System.out.println("__________________________________\n");
+        try {              
+            String sql = "SELECT *" +
+                        "FROM orderdetail";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%10s %20s %20s\n","ItemCount","waittime","Totalprice");
+            System.out.println("--------------------------------------------------------------------");
+                                
+            while (rs.next()) {
+                int itemcount = rs.getInt("itemcount");
+                Double waittime = rs.getDouble("waittime");
+                Double totalprice = rs.getDouble("totalprice");
+
+                System.out.printf("%10s %20s %20s \n", itemcount, waittime, totalprice);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    private void O2() {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        try {              
+            String sql = "SELECT SUM(itemcount),  SUM(totalprice)" +
+            "FROM orderdetail";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%10s %30s \n","Food/Drinks sold","Revenue/Profits(Dollars)" );
+            System.out.println("--------------------------------------------------------------------");
+                                
+            while (rs.next()) {
+                int itemcount = rs.getInt("SUM(itemcount)");
+                int totalprice = rs.getInt("SUM(totalprice)");
+
+                System.out.printf("%10s %20s \n", itemcount, totalprice);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    private void O3() {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("__________________________________");
+        System.out.println("Order of Customer's food choices");
+        System.out.println("__________________________________\n");
+        try {              
+            String sql = "SELECT c_name, f_name " +
+                         "FROM   customer, food, orders " +
+                         "WHERE  customer.custkey = orders.custkey " +
+                            "AND orders.foodkey = food.foodkey";
+
+            PreparedStatement stmt = c.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            System.out.printf("%10s %20s \n", "Name", "Food Type");
+            System.out.println("------------------------------------");
+                                
+            while (rs.next()) {
+                String name = rs.getString("c_name");
+                String f_name = rs.getString("f_name");
+
+                System.out.printf("%10s %20s \n",name, f_name);
+            }
+
+            rs.close();
+            stmt.close();
         } catch (Exception e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
@@ -1241,72 +1577,17 @@ public class CoffeeShop {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    private void Q4() {
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Q4");
-
-        try {
-            File fn = new File("input/4.in");
-            FileReader reader = new FileReader(fn);
-            BufferedReader in = new BufferedReader(reader);
-            String region = in.readLine();
-            int cap = Integer.parseInt(in.readLine());
-            in.close();
-
-            FileWriter writer = new FileWriter("output/4.out", false);
-            PrintWriter printer = new PrintWriter(writer);
-
-            printer.printf("%-40s %10s\n", "warehouse", "capacity");
-
-            printer.close();
-            writer.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        }
-
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    }
-
-    private void Q5() {
-        System.out.println();
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Q5");
-
-        try {
-            File fn = new File("input/5.in");
-            FileReader reader = new FileReader(fn);
-            BufferedReader in = new BufferedReader(reader);
-            String nation = in.readLine();
-            in.close();
-
-            FileWriter writer = new FileWriter("output/5.out", false);
-            PrintWriter printer = new PrintWriter(writer);
-
-            printer.printf("%-20s %20s\n", "region", "capacity");
-
-            printer.close();
-            writer.close();
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        }
-
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-    }
-
-
-    private void userInputs(int x){
-        switch (x){
-            case 1: Input1();
-                break;
-        }
+    public static int MainMenu() {
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("\n\n\n\n\n------ WELCOME TO PAUL's COFFEE DATABASE!!! ------ \n\nWhat would you like to look into? \n(1)cafe \n(2)customer \n(3)drinks \n(4)food \n(5)orders \n(6)orderDetail \n\nEnter integer: ");
+            int hmm = keyboard.nextInt();
+            return hmm;
     }
 
     public static void main(String args[]) {
         CoffeeShop sj = new CoffeeShop();
         
         sj.openConnection("coffeeshop.sqlite");
-
-        
 
         sj.dropTables();
         sj.createTables();
@@ -1323,46 +1604,127 @@ public class CoffeeShop {
         sj.populatePayment();
         sj.populateProfile();
         
-        System.out.println();
-        System.out.println("Enter a number for the following statements: ");
-        System.out.println("--------------------------------------------");
-        System.out.println("0: Exit");
-        System.out.println("1: Caffeine-free Menu");
-        System.out.println("2: Meat-free Menu");
-        System.out.println("3: Coffee Only");
-        System.out.println("4: Tea Only");
-        System.out.println("5: Iced Drinks Only");
-        System.out.println("6: Hot Drinks Only");
-        System.out.println("--------------------------------------------");
-        System.out.println();                    
-        System.out.print("Choose option: ");
+        Scanner keyboard = new Scanner(System.in);
+        
+        int input = 1;    
+        while(input != 5) {
+            keyboard = new Scanner(System.in);
+            System.out.println("\n\n\n\n\n------ WELCOME TO PAUL's COFFEE DATABASE!!! ------ \n\nWhat would you like to look into? \n(1)customer \n(2)drinks \n(3)food \n(4)orders \n(5)exit \n\nEnter integer: ");
+            input = keyboard.nextInt();   
+            while(input >= 1 && input <= 5) {
+                if (input == 1) {
+                    int c_num = 1;
+                    while (c_num != 4) {
+                        System.out.println("\n\n/////PAUL's COFFEE CUSTOMERS ///// \n\nWhat would you like to know about the customers? \n(1)Account Balance \n(2)Location ordered \n(3)Credit-Debit-Account \n(4)exit\n\nEnter integer: ");
+                        c_num = keyboard.nextInt();
+                        while (c_num >= 1 && c_num <= 3) {
+                            if(c_num == 1) { sj.C1();break;}
+                            if(c_num == 2) { sj.C2();break;}
+                            if(c_num == 3) { sj.C3();break;}
+                            break;
+                        }
+                    }
+                    System.out.println("\n exiting ....");
 
-        Scanner sc = new Scanner(System.in);
-        int input = sc.nextInt();
-        
-        
-        sj.userInputs(input);
-        
-        while(input != 0){
-            System.out.println("Enter a number for the following statements: ");
-            System.out.println("--------------------------------------------");
-            System.out.println("0: Exit");
-            System.out.println("1: Caffeine-free Menu");
-            System.out.println("2: Meat-free Menu");
-            System.out.println("3: Coffee Only");
-            System.out.println("4: Tea Only");
-            System.out.println("5: Iced Drinks Only");
-            System.out.println("6: Hot Drinks Only");
-            System.out.println("--------------------------------------------");
-            System.out.println();
-            System.out.print("Choose option: ");
+                    break;
+                }
+                else if (input == 2) {
+                    int c_num = 1;
+                    while (c_num != 4) {
+                        System.out.println("\n\n/////PAUL's COFFEE DRINKS ///// \n\nWhat would you like to know about the drinks here? \n(1)Caffinated and non-Caffinated Drinks \n(2)Price Range \n(3)Cup Sizes \n(4)exit\n\nEnter integer: ");
+                        c_num = keyboard.nextInt();
+                        while (c_num >= 1 && c_num <= 3) {
+                            if(c_num == 1) { 
+                                System.out.println("Drink Menu (1)-general (2)-Caffeine-free: ");
+                                int menutype = keyboard.nextInt();
+                                sj.D1(menutype);
+                                break;
+                            }
+                            if(c_num == 2) { 
+                                System.out.println("Find your the right price for your drink: \nLower < DRINK < Higher\nEnter Lower range(Ex: 3.00)");
+                                Double price1 = keyboard.nextDouble();
+                                System.out.println("\n"+price1+" < DRINK < Higher\nEnter Lower range(Ex: 3.00): ");
+                                Double price2 = keyboard.nextDouble();
+                                System.out.println("\n"+price1+" < DRINK < "+price2+"\n");
+                                if(price1 > price2) {break;}
+                                sj.D2(price1,price2);
+                                break;
+                            }
+                            if(c_num == 3) { 
+                                System.out.println("Choose your drink size: (1)Small (2)Medium (3)Large ");
+                                int size = keyboard.nextInt();
+                                sj.D3(size);
+                                break;
+                            }
+                            break;
+                        }
+                    }
+                    System.out.println("\n exiting ....");
 
-            sc = new Scanner(System.in);
-            input = sc.nextInt();
-        
-            sj.userInputs(input);
+                    break;
+                } else if(input == 3) {
+                    int c_num = 1;
+                    while (c_num != 4) {
+                        System.out.println("\n\n/////PAUL's COFFEE FOOD ///// \n\nWhat would you like to know about the orders here? \n(1)Baked goods and Meat-free snacks \n(2)Price Range \n(3)Credit-Debit-Account \n(4)exit\n\nEnter integer: ");
+                        c_num = keyboard.nextInt();
+                        while (c_num >= 1 && c_num <= 3) {
+                            if(c_num == 1) { 
+                                System.out.println("Drink Menu (1)-general (2)-Meat-free: ");
+                                int menutype = keyboard.nextInt();
+                                sj.F1(menutype);
+                                break;
+                            }
+                            if(c_num == 2) { 
+                                System.out.println("Find your the right price for your meal: \nLower < FOOD < Higher\nEnter Lower range(Ex: 3.00)");
+                                Double price1 = keyboard.nextDouble();
+                                System.out.println("\n"+price1+" < FOOD < Higher\nEnter Lower range(Ex: 3.00): ");
+                                Double price2 = keyboard.nextDouble();
+                                System.out.println("\n"+price1+" < FOOD < "+price2+"\n ");
+                                if(price1 > price2) {break;}
+                                sj.F2(price1,price2);
+                                break;
+                            }
+                            if(c_num == 3) { 
+                                System.out.println("Choose your food type: (1)Bakery (2)Snacks (3)Sandwich ");
+                                int size = keyboard.nextInt();
+                                sj.F3(size);
+                                break;
+                            }
+                            break;
+                        }
+                    }
+                    System.out.println("\n exiting ....");
+                    break;
+                } else if(input == 4) { 
+                    int c_num = 1;
+                    while (c_num != 4) {
+                        System.out.println("\n\n/////PAUL's COFFEE ORDERS ///// \n\nWhat would you like to know about the orders here? \n(1)Order Detail \n(2)Total revenue \n(3)Order of Customer meal \n(4)exit\n\nEnter integer: ");
+                        c_num = keyboard.nextInt();
+                        while (c_num >= 1 && c_num <= 3) {
+                            if(c_num == 1) { 
+                                sj.O1();
+                                break;
+                            }
+                            if(c_num == 2) { 
+                                sj.O2();
+                                break;
+                            }
+                            if(c_num == 3) { 
+                                sj.O3();
+                                break;
+                            }
+                            break;
+                        }
+                    }
+                    System.out.println("\n exiting ....");
+                    break;
+                }
+                
+                else {
+                    break;
+                }
+            }
         }
-        
         sj.closeConnection();
     }
 }
